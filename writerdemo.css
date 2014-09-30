@@ -1,0 +1,51 @@
+body {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 300;
+    font-size: 16px;
+}
+ 
+sup {
+    vertical-align: super;
+}
+ 
+sub {
+    vertical-align: sub;
+}
+ 
+.navbar {
+    font-weight: 400;
+}
+ 
+.toolbar {
+    margin-top: 80px;
+    width: 80%;
+    margin-left: 15%;
+}
+ 
+.editor {
+    height: 500px;
+    outline: 0 !important;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-top: 120px;
+    margin-right: auto;
+    margin-left: auto;
+}
+ 
+@media (min-width: 768px) {
+    .editor {
+        width: 750px;
+    }
+}
+ 
+@media (min-width: 992px) {
+    .editor {
+        width: 970px;
+    }
+}
+ 
+@media (min-width: 1200px) {
+    .editor {
+        width: 1170px;
+    }
+}
