@@ -87,8 +87,7 @@ var Writer = function (p_elem, p_options) {
         }
  
         return el;
-    }
- 
+    } 
      
     /*
      * Sets up the paragraph creation handler. This will make every enter key hit
@@ -97,12 +96,35 @@ var Writer = function (p_elem, p_options) {
      */
     function setParagraphCreationHandler() {
         writercont.addEventListener('keyup', function (e) {
-            var node = getSelectionStartNode();
+            var node = getSelectionStartNode(),
+                parentTag = node.parentNode.tagName.toLowerCase(),
+                listTags = ['li', 'ul', 'ol'];
             if (node && node.classList.contains('writer-cont') && node.children.length === 0) {
                 document.execCommand('formatBlock', false, 'p');
             }
             if (e.which === 13 && !e.shiftKey) {
-                document.execCommand('formatBlock', false, 'p');
+                if (listTags.indexOf(parentTag) === -1) {
+                    document.execCommand('formatBlock', false, 'p');
+                }
+            }
+        });
+    }
+    
+    /*
+     * Backspace handler to prevent the deletion of the unique paragraph in case the
+     * writer is empty
+     */
+    function setBackspaceHandler() {
+        writercont.addEventListener('keydown', function (e) {
+            var node = getSelectionStartNode();
+            
+            if (e.which === 8) {
+                // if i'm the first paragraph (no siblings on top) and there's no text
+                // then prevent backspace deleting me
+                if (node.previousSibling === null && node.textContent.length === 0
+                        && node.parentNode.classList.contains('writer-cont')) {
+                    e.preventDefault();
+                }
             }
         });
     }
@@ -144,7 +166,15 @@ var Writer = function (p_elem, p_options) {
      */
     function executeFormatBlockCommand(p_command) {
         var parentBlockElem = getFirstBlockParentElement(storedSelection.selection.anchorNode);
-         
+        
+        // Handle Firefox nesting blockquotes instead of removing it
+        if (p_command === 'blockquote' && parentBlockElem.parentNode.tagName.toLowerCase() === 'blockquote') {
+            return document.execCommand('outdent', false, null);
+        }
+        // Handle Firefox nesting other block elements inside blockquote
+        if (parentBlockElem.parentNode.tagName.toLowerCase() === 'blockquote') {
+            document.execCommand('outdent', false, null);
+        }
         // If current block elem is same as command, then convert back to paragraph
         if (parentBlockElem.tagName.toLowerCase() === p_command) {
             p_command = 'p';
@@ -158,6 +188,7 @@ var Writer = function (p_elem, p_options) {
     writercont.setAttribute('contenteditable', 'true');
     writercont.classList.add('writer-cont');
     setPlaceholder();
+    setBackspaceHandler();
     setParagraphCreationHandler();
     setTextSelectionHandler();
     setPastePlainTextHandler();
@@ -181,6 +212,14 @@ var Writer = function (p_elem, p_options) {
      
     writer.executeStrikethrough = function () {
         executeStylingCommand('strikethrough');
+    };
+    
+    writer.executeOrderedList = function () {
+        executeStylingCommand('insertorderedlist');
+    };
+    
+    writer.executeUnorderedList = function () {
+        executeStylingCommand('insertunorderedlist');
     };
      
     writer.executeSuperscript = function () {

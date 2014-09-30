@@ -7,7 +7,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="writer.js" ></script>
     
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" >
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" >
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700' >
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="writerdemo.css">
@@ -30,6 +30,8 @@
             <li><a href="#" id="btn-italic"><i class="fa fa-italic"></i></a></li>
             <li><a href="#" id="btn-underline"><i class="fa fa-underline"></i></a></li>
             <li><a href="#" id="btn-strike"><i class="fa fa-strikethrough"></i></a></li>
+            <li><a href="#" id="btn-ol"><i class="fa fa-list-ol"></i></a></li>
+            <li><a href="#" id="btn-ul"><i class="fa fa-list-ul"></i></a></li>
             <li><a href="#" id="btn-super"><i class="fa fa-superscript"></i></a></li>
             <li><a href="#" id="btn-sub"><i class="fa fa-subscript"></i></a></li>
             <li><a href="#" id="btn-h1">H1</a></li>
@@ -61,6 +63,12 @@
     });
     $('#btn-strike').click(function(e){
         writer.executeStrikethrough();
+    });
+    $('#btn-ol').click(function(e){
+        writer.executeOrderedList();
+    });
+    $('#btn-ul').click(function(e){
+        writer.executeUnorderedList();
     });
     $('#btn-super').click(function(e){
         writer.executeSuperscript();

@@ -40,12 +40,12 @@ sub {
  
 @media (min-width: 992px) {
     .editor {
-        width: 970px;
+        width: 800px;
     }
 }
  
 @media (min-width: 1200px) {
     .editor {
-        width: 1170px;
+        width: 900px;
     }
 }
