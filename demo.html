@@ -5,7 +5,8 @@
 	<title>Writer test</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-	<script src="writer.js" ></script>
+    <script src="writer.js" ></script>
+    <script src="demo.js" ></script>
     
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" >
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700' >
@@ -14,80 +15,37 @@
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-pencil"></span> writerJS</a>
+        <div class="container">
+            <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-pencil"></span> writerJS</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right button-list"> 
+                    <li><a href="#" id="btn-bold"><i class="fa fa-bold"></i></a></li>
+                    <li><a href="#" id="btn-italic"><i class="fa fa-italic"></i></a></li>
+                    <li><a href="#" id="btn-underline"><i class="fa fa-underline"></i></a></li>
+                    <li><a href="#" id="btn-strike"><i class="fa fa-strikethrough"></i></a></li>
+                    <li><a href="#" id="btn-ol"><i class="fa fa-list-ol"></i></a></li>
+                    <li><a href="#" id="btn-ul"><i class="fa fa-list-ul"></i></a></li>
+                    <li><a href="#" id="btn-super"><i class="fa fa-superscript"></i></a></li>
+                    <li><a href="#" id="btn-sub"><i class="fa fa-subscript"></i></a></li>
+                    <li><a href="#" id="btn-h1">H1</a></li>
+                    <li><a href="#" id="btn-h2">H2</a></li>
+                    <li><a href="#" id="btn-pre"><i class="fa fa-code"></i></a></li>
+                    <li><a href="#" id="btn-quote"><i class="fa fa-quote-right"></i></a></li>
+                    <li><a href="#" id="btn-anchor"><i class="fa fa-anchor"></i></a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
         </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right"> 
-            <li><a href="#" id="btn-bold"><i class="fa fa-bold"></i></a></li>
-            <li><a href="#" id="btn-italic"><i class="fa fa-italic"></i></a></li>
-            <li><a href="#" id="btn-underline"><i class="fa fa-underline"></i></a></li>
-            <li><a href="#" id="btn-strike"><i class="fa fa-strikethrough"></i></a></li>
-            <li><a href="#" id="btn-ol"><i class="fa fa-list-ol"></i></a></li>
-            <li><a href="#" id="btn-ul"><i class="fa fa-list-ul"></i></a></li>
-            <li><a href="#" id="btn-super"><i class="fa fa-superscript"></i></a></li>
-            <li><a href="#" id="btn-sub"><i class="fa fa-subscript"></i></a></li>
-            <li><a href="#" id="btn-h1">H1</a></li>
-            <li><a href="#" id="btn-h2">H2</a></li>
-            <li><a href="#" id="btn-pre"><i class="fa fa-code"></i></a></li>
-            <li><a href="#" id="btn-quote"><i class="fa fa-quote-right"></i></a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
     </div>
     
 	<div id="writer" class="editor"></div>
 </body>
-
-<script type="text/javascript">
-	var writer = new Writer('.editor', {
-        header1: 'h2',
-        header2: 'h3'
-    });
-    
-    $('#btn-bold').click(function(e){
-        writer.executeBold();
-    });
-    $('#btn-italic').click(function(e){
-        writer.executeItalic();
-    });
-    $('#btn-underline').click(function(e){
-        writer.executeUnderline();
-    });
-    $('#btn-strike').click(function(e){
-        writer.executeStrikethrough();
-    });
-    $('#btn-ol').click(function(e){
-        writer.executeOrderedList();
-    });
-    $('#btn-ul').click(function(e){
-        writer.executeUnorderedList();
-    });
-    $('#btn-super').click(function(e){
-        writer.executeSuperscript();
-    });
-    $('#btn-sub').click(function(e){
-        writer.executeSubscript();
-    });
-    $('#btn-h1').click(function(e){
-        writer.executeHeader1();
-    });
-    $('#btn-h2').click(function(e){
-        writer.executeHeader2();
-    });
-    $('#btn-pre').click(function(e){
-        writer.executePreformatted();
-    });
-    $('#btn-quote').click(function(e){
-        writer.executeBlockquote();
-    });
-</script>
 
 </html>

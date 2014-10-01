@@ -1,3 +1,6 @@
+/*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50 */
+/*global define */
+
 var Writer = function (p_elem, p_options) {
      
     'use strict';
@@ -11,7 +14,7 @@ var Writer = function (p_elem, p_options) {
             placeholder: 'Start writing here!'
         },
         writerOptions = defaultOptions,
-        blockElements = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'pre'],
+        blockElements = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'pre', 'ul', 'ol', 'li'],
         elems,
         opt,
         placeholder;
@@ -38,6 +41,41 @@ var Writer = function (p_elem, p_options) {
         }
         if (!writercont) {
             return;
+        }
+    }
+    
+    /*
+     * Returns the current selection ranges to store them.
+     * Useful when trying to execute a link action where the 
+     * editor is losing focus to enter the link ref.
+     */
+    function getSelectionRanges() {
+        var i,
+            len,
+            ranges,
+            sel = window.getSelection();
+        if (sel.getRangeAt && sel.rangeCount) {
+            ranges = [];
+            for (i = 0, len = sel.rangeCount; i < len; i += 1) {
+                ranges.push(sel.getRangeAt(i));
+            }
+            return ranges;
+        }
+        return null;
+    }
+
+    /*
+     * Restores the selection given as parameter
+     */
+    function restoreSelectionRanges(savedSel) {
+        var i,
+            len,
+            sel = window.getSelection();
+        if (savedSel) {
+            sel.removeAllRanges();
+            for (i = 0, len = savedSel.length; i < len; i += 1) {
+                sel.addRange(savedSel[i]);
+            }
         }
     }
      
@@ -87,8 +125,8 @@ var Writer = function (p_elem, p_options) {
         }
  
         return el;
-    } 
-     
+    }
+    
     /*
      * Sets up the paragraph creation handler. This will make every enter key hit
      * to create a new paragraph overriding the browser default handler for the
@@ -153,7 +191,31 @@ var Writer = function (p_elem, p_options) {
         writercont.addEventListener('keyup', storeSelection);
         writercont.addEventListener('blur', storeSelection);
     }
-     
+    
+    /*
+     * Handles the non wanted span creation done by Chrome. When a span element is 
+     * created it removes it and moves it's content to the parent element.
+     */
+    function setSpanCreationHandler() {
+        writercont.addEventListener('DOMNodeInserted', function (e) {
+            if (e.target.tagName === 'SPAN') {
+                var parent = e.target.parentNode;
+                while (e.target.firstChild) {
+                    parent.appendChild(e.target.firstChild);
+                }
+                parent.removeChild(e.target);
+                console.log('removed browser created span elem');
+            }
+        });
+    }
+    
+    /*
+     * Insert new node after referenceNode
+     */
+    function insertAfter(newNode, referenceNode) {
+        referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    }
+    
     /*
      * Executes a styling command over the current writer selected text.
      */
@@ -181,6 +243,20 @@ var Writer = function (p_elem, p_options) {
         }
         return document.execCommand('formatBlock', false, p_command);
     }
+    
+    /*
+     * Executes an anchor action over the currently selected text. 
+     */
+    function executeLinkAction(reference) {
+        document.execCommand('createLink', false, reference);
+    }
+    
+    /*
+     * Removes the link from the current selection
+     */
+    function executeUnlinkAction() {
+        document.execCommand('unlink', false, null);
+    }
      
     /*
      * Initialise writer container
@@ -192,11 +268,24 @@ var Writer = function (p_elem, p_options) {
     setParagraphCreationHandler();
     setTextSelectionHandler();
     setPastePlainTextHandler();
+    setSpanCreationHandler();
      
      
     /**
      * Public API
      */
+    
+    writer.getSelectionNode = function () {
+        return storedSelection.selection;
+    };
+    
+    writer.getSelectionRanges = function () {
+        return getSelectionRanges();
+    };
+    
+    writer.restoreSelectionRanges = function (ranges) {
+        restoreSelectionRanges(ranges);
+    };
      
     writer.executeBold = function () {
         executeStylingCommand('bold');
@@ -244,6 +333,14 @@ var Writer = function (p_elem, p_options) {
      
     writer.executePreformatted = function () {
         executeFormatBlockCommand('pre');
+    };
+    
+    writer.executeLink = function (reference) {
+        executeLinkAction(reference);
+    };
+    
+    writer.executeUnlink = function () {
+        executeUnlinkAction();
     };
  
     return writer;

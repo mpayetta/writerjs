@@ -32,6 +32,14 @@ sub {
     margin-left: auto;
 }
  
+.anchor-form {
+    margin-top: 10px;
+}
+
+.anchor-form #anchor-ref {
+    width: 350px;
+}
+
 @media (min-width: 768px) {
     .editor {
         width: 750px;
