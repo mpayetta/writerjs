@@ -40,6 +40,12 @@ sub {
     width: 350px;
 }
 
+.conr {
+    position: absolute;
+    bottom: 31px;
+    width: 100%;
+    text-align: left;
+}
 @media (min-width: 768px) {
     .editor {
         width: 750px;
