@@ -42,7 +42,7 @@ sub {
 
 .conr {
     position: absolute;
-    bottom: 31px;
+    bottom: 0;
     width: 100%;
     text-align: left;
 }
