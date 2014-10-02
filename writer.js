@@ -343,6 +343,11 @@ var Writer = function (p_elem, p_options) {
         executeUnlinkAction();
     };
     
+    writer.insertHorizontalRule = function () {
+        document.execCommand('insertHorizontalRule', null);
+        document.execCommand('formatBlock', false, 'p');
+    };
+    
     writer.enable = function () {
         writercont.setAttribute('contenteditable', 'true');  
     };

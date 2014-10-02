@@ -67,6 +67,9 @@ $(function () {
     $('#btn-quote').click(function (e) {
         writer.executeBlockquote();
     });
+    $('#btn-hr').click(function (e) {
+        writer.insertHorizontalRule();
+    });
     
     $('#btn-anchor').click(function (e) {
         if (writer.getSelectionNode().anchorNode.parentNode.tagName.toLowerCase() === 'a') {
