@@ -342,6 +342,18 @@ var Writer = function (p_elem, p_options) {
     writer.executeUnlink = function () {
         executeUnlinkAction();
     };
+    
+    writer.enable = function () {
+        writercont.setAttribute('contenteditable', 'true');  
+    };
+    
+    writer.disable = function () {
+        writercont.setAttribute('contenteditable', 'false');  
+    };
+    
+    writer.focus = function() {
+        writercont.focus();
+    }
  
     return writer;
      
