@@ -3,10 +3,21 @@
 
 $(function () {
     'use strict';
+    
+    $('.button-list').hide();
+    var onSelection = function (selection) {
+        if (selection.toString().length > 0) {
+            $('.button-list').show();
+        }
+        else {
+            $('.button-list').hide();
+        }
+    }
 
-    var writer = new Writer('.editor', {
+    var writer = Writer('.editor', {
         header1: 'h2',
-        header2: 'h3'
+        header2: 'h3',
+        onSelectText: onSelection,
     });
     
     $('.anchor-form').hide();
@@ -66,9 +77,6 @@ $(function () {
     });
     $('#btn-quote').click(function (e) {
         writer.executeBlockquote();
-    });
-    $('#btn-hr').click(function (e) {
-        writer.insertHorizontalRule();
     });
     
     $('#btn-anchor').click(function (e) {

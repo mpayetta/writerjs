@@ -11,7 +11,8 @@ var Writer = function (p_elem, p_options) {
         defaultOptions = {
             header1: 'h1',
             header2: 'h2',
-            placeholder: 'Start writing here!'
+            placeholder: 'Start writing here!',
+            onSelectText: function (selection) { }
         },
         writerOptions = defaultOptions,
         blockElements = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'pre', 'ul', 'ol', 'li'],
@@ -78,6 +79,27 @@ var Writer = function (p_elem, p_options) {
             }
         }
     }
+    
+    /*
+     * Places the cursor at the end of the given element
+     */
+    function placeCursorAtEnd(el) {
+        el.focus();
+        if (typeof window.getSelection !== "undefined"
+                && typeof document.createRange !== "undefined") {
+            var range = document.createRange();
+            range.selectNodeContents(el);
+            range.collapse(false);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+        } else if (typeof document.body.createTextRange !== "undefined") {
+            var textRange = document.body.createTextRange();
+            textRange.moveToElementText(el);
+            textRange.collapse(false);
+            textRange.select();
+        }
+    }
      
     function setPlaceholder() {
         placeholder = document.createElement('p');
@@ -86,7 +108,20 @@ var Writer = function (p_elem, p_options) {
         placeholder.focus();
         placeCursorAtEnd(placeholder);
     }
-     
+    
+    /*
+     * Returns the selection text 
+     */
+    function getSelectionText() {
+        var text = "";
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        } else if (document.selection && document.selection.type !== "Control") {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
+    
     /*
      * Returns the current selection starting DOM node
      */
@@ -95,9 +130,20 @@ var Writer = function (p_elem, p_options) {
             startNode = (node && node.nodeType === 3 ? node.parentNode : node);
         return startNode;
     }
+    
+    /*
+     * Triggers the user defined function for the selection event, stored in
+     * writerOptions.onSelectText
+     */
+    function triggerSelectionFunction() {
+        if (writercont.getAttribute("contenteditable") === "true") {
+            writerOptions.onSelectText(storedSelection.selection);
+        }
+    }
      
     /*
      * Stores the current selection object in the global storedSelection variable
+     * and then triggers the onSelectText event function
      */
     function storeSelection() {
         var newSelection = window.getSelection();
@@ -105,30 +151,8 @@ var Writer = function (p_elem, p_options) {
             storedSelection.selection = newSelection;
             storedSelection.selectionRange = storedSelection.selection.getRangeAt(0);
         }
-         
+        triggerSelectionFunction();
     }
-    
-    /*
-     * Places the cursor at the end of the given element
-     */
-    function placeCursorAtEnd(el) {
-        el.focus();
-        if (typeof window.getSelection != "undefined"
-                && typeof document.createRange != "undefined") {
-            var range = document.createRange();
-            range.selectNodeContents(el);
-            range.collapse(false);
-            var sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
-        } else if (typeof document.body.createTextRange != "undefined") {
-            var textRange = document.body.createTextRange();
-            textRange.moveToElementText(el);
-            textRange.collapse(false);
-            textRange.select();
-        }
-    }
-
      
     /*
      * Returns the first parent element of the given element that is a block
@@ -366,22 +390,17 @@ var Writer = function (p_elem, p_options) {
         executeUnlinkAction();
     };
     
-    writer.insertHorizontalRule = function () {
-        document.execCommand('insertHorizontalRule', null);
-        document.execCommand('formatBlock', false, 'p');
-    };
-    
     writer.enable = function () {
-        writercont.setAttribute('contenteditable', 'true');  
+        writercont.setAttribute('contenteditable', 'true');
     };
     
     writer.disable = function () {
-        writercont.setAttribute('contenteditable', 'false');  
+        writercont.setAttribute('contenteditable', 'false');
     };
     
-    writer.focus = function() {
+    writer.focus = function () {
         writercont.focus();
-    }
+    };
  
     return writer;
      
