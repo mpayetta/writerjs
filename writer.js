@@ -264,9 +264,31 @@ var Writer = function (p_elem, p_options) {
     }
     
     /*
+     * Inserts empty paragraphs after elements that when hitting the
+     * enter key will just go to a next line within the same element.
+     * For example in blockquotes, when hitting enter, instead of going out
+     * to a new paragraph, it goes to a new line in the blockquote and 
+     * if there's no paragraph after the blockquote is impossible to 
+     * continue writing after it.
+     */
+    function insertEmptyParagraphs() {
+        var elems = writercont.querySelectorAll('blockquote, pre'),
+            i,
+            el,
+            next;
+        for (i = 0; i < elems.length; i++) {
+            el = elems[i];
+            next = el.nextSibling;
+            if (!next || next.tagName.toLowerCase() !== 'p') {
+                insertAfter(document.createElement('p'), el);
+            }
+        }
+    }
+    
+    /*
      * Executes a styling command over the current writer selected text.
      */
-    function executeStylingCommand(p_command) {
+    function executeInlineCommand(p_command) {
         document.execCommand(p_command, false, null);
     }
      
@@ -288,7 +310,8 @@ var Writer = function (p_elem, p_options) {
         if (parentBlockElem.tagName.toLowerCase() === p_command) {
             p_command = 'p';
         }
-        return document.execCommand('formatBlock', false, p_command);
+        
+        document.execCommand('formatBlock', false, p_command);
     }
     
     /*
@@ -335,35 +358,35 @@ var Writer = function (p_elem, p_options) {
     };
      
     writer.executeBold = function () {
-        executeStylingCommand('bold');
+        executeInlineCommand('bold');
     };
      
     writer.executeItalic = function () {
-        executeStylingCommand('italic');
+        executeInlineCommand('italic');
     };
      
     writer.executeUnderline = function () {
-        executeStylingCommand('underline');
+        executeInlineCommand('underline');
     };
      
     writer.executeStrikethrough = function () {
-        executeStylingCommand('strikethrough');
+        executeInlineCommand('strikethrough');
     };
     
     writer.executeOrderedList = function () {
-        executeStylingCommand('insertorderedlist');
+        executeInlineCommand('insertorderedlist');
     };
     
     writer.executeUnorderedList = function () {
-        executeStylingCommand('insertunorderedlist');
+        executeInlineCommand('insertunorderedlist');
     };
      
     writer.executeSuperscript = function () {
-        executeStylingCommand('superscript');
+        executeInlineCommand('superscript');
     };
      
     writer.executeSubscript = function () {
-        executeStylingCommand('subscript');
+        executeInlineCommand('subscript');
     };
      
     writer.executeHeader1 = function () {
@@ -376,10 +399,12 @@ var Writer = function (p_elem, p_options) {
      
     writer.executeBlockquote = function () {
         executeFormatBlockCommand('blockquote');
+        insertEmptyParagraphs();
     };
      
     writer.executePreformatted = function () {
         executeFormatBlockCommand('pre');
+        insertEmptyParagraphs();
     };
     
     writer.executeLink = function (reference) {

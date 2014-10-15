@@ -4,7 +4,6 @@
 $(function () {
     'use strict';
     
-    $('.button-list').hide();
     var onSelection = function (selection) {
         if (selection.toString().length > 0) {
             $('.button-list').show();
@@ -16,8 +15,7 @@ $(function () {
 
     var writer = Writer('.editor', {
         header1: 'h2',
-        header2: 'h3',
-        onSelectText: onSelection,
+        header2: 'h3'
     });
     
     $('.anchor-form').hide();

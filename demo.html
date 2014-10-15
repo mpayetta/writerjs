@@ -10,6 +10,8 @@
     
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" >
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700' >
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:400,700,300'>
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Pacifico'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="writerdemo.css">
 </head>
@@ -17,36 +19,49 @@
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-pencil"></span> writerJS</a>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand main-color" href="#">writer</a></span>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right button-list"> 
-                    <li><a href="#" id="btn-onoff"><i class="fa fa-toggle-on"></i></a></li> 
-                    <li><a href="#" id="btn-bold"><i class="fa fa-bold"></i></a></li>
-                    <li><a href="#" id="btn-italic"><i class="fa fa-italic"></i></a></li>
-                    <li><a href="#" id="btn-underline"><i class="fa fa-underline"></i></a></li>
-                    <li><a href="#" id="btn-strike"><i class="fa fa-strikethrough"></i></a></li>
-                    <li><a href="#" id="btn-ol"><i class="fa fa-list-ol"></i></a></li>
-                    <li><a href="#" id="btn-ul"><i class="fa fa-list-ul"></i></a></li>
-                    <li><a href="#" id="btn-super"><i class="fa fa-superscript"></i></a></li>
-                    <li><a href="#" id="btn-sub"><i class="fa fa-subscript"></i></a></li>
-                    <li><a href="#" id="btn-h1">H1</a></li>
-                    <li><a href="#" id="btn-h2">H2</a></li>
-                    <li><a href="#" id="btn-pre"><i class="fa fa-code"></i></a></li>
-                    <li><a href="#" id="btn-quote"><i class="fa fa-quote-right"></i></a></li>
-                    <li><a href="#" id="btn-anchor"><i class="fa fa-anchor"></i></a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
         </div>
     </div>
     
-	<div id="writer" class="editor"></div>
+    <div class="editor-container">
+        <div class="toolbar">
+            <ul class="button-list"> 
+                <li><a href="#" id="btn-onoff"><i class="fa fa-toggle-on"></i></a></li> 
+                <li><a href="#" id="btn-bold"><i class="fa fa-bold"></i></a></li>
+                <li><a href="#" id="btn-italic"><i class="fa fa-italic"></i></a></li>
+                <li><a href="#" id="btn-underline"><i class="fa fa-underline"></i></a></li>
+                <li><a href="#" id="btn-strike"><i class="fa fa-strikethrough"></i></a></li>
+                <li><a href="#" id="btn-ol"><i class="fa fa-list-ol"></i></a></li>
+                <li><a href="#" id="btn-ul"><i class="fa fa-list-ul"></i></a></li>
+                <li><a href="#" id="btn-super"><i class="fa fa-superscript"></i></a></li>
+                <li><a href="#" id="btn-sub"><i class="fa fa-subscript"></i></a></li>
+                <li><a href="#" id="btn-h1">H1</a></li>
+                <li><a href="#" id="btn-h2">H2</a></li>
+                <li><a href="#" id="btn-pre"><i class="fa fa-code"></i></a></li>
+                <li><a href="#" id="btn-quote"><i class="fa fa-quote-right"></i></a></li>
+                <li><a href="#" id="btn-anchor"><i class="fa fa-anchor"></i></a></li>
+            </ul>
+        </div>
+	    <div id="writer" class="editor">
+            
+            <h2>Start writing!</h2>
+            <h3>And use the toolbar to style your text</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu sollicitudin velit. Donec convallis neque quam, a tincidunt                lorem viverra sed. Mauris nec lorem at purus ornare blandit. Fusce ex risus, sodales eget risus vitae, volutpat elementum                    ligula. In nula odio, consectetur sit amet cursus vel, condimentum vel libero. Nam vulputate euismod turpis eget eleifend. Ut                quis massa ornare, maximus lorem eu, mattis justo. Sed nibh sapien, pharetra non gravida quis, malesuada nec nisl.</p>
+
+            <p>Quisque sit amet rhoncus metus. Suspendisse porta justo sit amet magna volutpat, id dapibus lorem fermentum. Cum sociis                      natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cum sociis natoque penatibus et magnis dis                        parturient montes, nascetur ridiculus mus. Suspendisse sollicitudin gravida viverra. Donec malesuada arcu elit, sed lobortis                ligula euismod nec. Praesent bibendum libero laoreet dui viverra tincidunt. Sed varius sapien convallis tellus mollis, a                    vestibulum est consequat.</p>
+
+            <p>Cras gravida, tellus eu accumsan pretium, mi mi fermentum ex, cursus fermentum massa massa at augue. Nunc fermentum mauris                  tellus. Quique in nisl et justo sagittis aliquet. Vivamus non libero ullamcorper, finibus dolor non, sagittis elit. Nam                      egestas et lectus in ultrices. Proin sit amet turpis ac leo mattis tempus non non nisl. Nunc congue porta nunc nec dictum.                  Cras mi lorem, gravida vitae enim ut, laoreet sollicitudin leo. Aenean sit amet orci vel neque tincidunt lobortis.                          Suspendisse lacus tortor, pharetra a risus facilisis, molestie molestie neque.</p>
+
+            <p>Curabitur at porttitor justo, non elementum dui. Duis at lorem sit amet enim mattis gravida. Pellentesque tempor velit sed                  justo pharera ornare. Aenean lobortis quam malesuada enim tempus hendrerit. Sed ac lacus hendrerit, sagittis est vitae,                      suscipit eros. Donec dictum sollicitudin aliquet. Nullam commodo risus purus, eget porta purus blandit vitae. Quisque                        sagittis lorem nec mi venenatis, consequat scelerisque justo mattis. Vivamus vel leo venenatis, porttitor nisl dignissim,                    rhoncus arcu. Phasellus pulvinar ut libero eu commodo. Mauris urna magna, tempus dapibus purus id, vestibulum elementum                      justo. Sed volutpat gravida imperdiet. Sed dapibus dignissim ligula, non luctus nulla luctus eu. Maecenas at nibh mollis,                    imperdiet justo quis, vehicula arcu. Curabitur ullamcorper ligula quis maximus dictum.</p> 
+        </div>
+    </div>
     
 </body>
 
