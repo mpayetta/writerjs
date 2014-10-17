@@ -1,3 +1,30 @@
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+
 * {
     outline: 0 !important;
 }
@@ -6,6 +33,7 @@ body {
     font-family: 'Lato', sans-serif;
     font-weight: 300;
     font-size: 16px;
+    background: #fff;
 }
 
 p {
@@ -48,23 +76,34 @@ sub {
     margin-top: 100px;
     margin-right: auto;
     margin-left: auto;
+    background: #fff;
 }
 
 .button-list {
-    margin-bottom: 0px;
+    position: fixed;
+    top: 65px;
+    overflow: hidden;
+    height: 40px;
+    width: 100%;
+    text-align: center;
+    line-height: 40px;
     padding: 0px;
     background-color: #f2f2f2;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    background-color: #DE2C3B;
 }
 
 .button-list > li {
     list-style: none;
     display: inline;
     padding: 5px 10px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
 }
 
 .button-list > li:hover {
-    background-color: #DE2C3B;
+    background-color: #222;
 }
 
 .button-list > li:hover > a {
@@ -72,7 +111,7 @@ sub {
 }
 
 .button-list > li > a {
-    color: #222;
+    color: #f2f2f2;
 }
 
 .button-list > li > a:hover {
@@ -82,8 +121,26 @@ sub {
  
 .editor {
     outline: 0 !important;
-    padding: 25px;
+    padding: 15px;
     border: 1px solid #eee;
+    font-family: 'Roboto Slab';
+}
+
+.editor blockquote,
+.editor pre {
+    margin: 40px 40px;
+}
+
+.editor a {
+    color: #DE2C3B;
+}
+
+.editor hr {
+    color: #DE2C3B;
+    background-color: #DE2C3B;
+    width: 50%;
+    height: 3px;
+    margin: 40px auto;
 }
  
 .anchor-form {

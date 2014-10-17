@@ -3,10 +3,10 @@
 
 $(function () {
     'use strict';
-    
+    $('.button-list').hide();
     var onSelection = function (selection) {
         if (selection.toString().length > 0) {
-            $('.button-list').show();
+            $('.button-list').fadeIn();
         }
         else {
             $('.button-list').hide();
@@ -15,11 +15,12 @@ $(function () {
 
     var writer = Writer('.editor', {
         header1: 'h2',
-        header2: 'h3'
+        header2: 'h3',
+        placeholder: '',
+        onSelectText: onSelection
     });
     
-    $('.anchor-form').hide();
-    
+        
     $('#btn-onoff').click(function (e) {
         if ($('#btn-onoff i').hasClass('fa-toggle-on')) {
             writer.disable();

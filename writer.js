@@ -12,6 +12,7 @@ var Writer = function (p_elem, p_options) {
             header1: 'h1',
             header2: 'h2',
             placeholder: 'Start writing here!',
+            insertHorizontalRule: true,
             onSelectText: function (selection) { }
         },
         writerOptions = defaultOptions,
@@ -183,11 +184,18 @@ var Writer = function (p_elem, p_options) {
         writercont.addEventListener('keyup', function (e) {
             var node = getSelectionStartNode(),
                 parentTag = node.parentNode.tagName.toLowerCase(),
-                listTags = ['li', 'ul', 'ol'];
+                listTags = ['li', 'ul', 'ol'],
+                prevElem;
             if (node && node.classList.contains('writer-cont') && node.children.length === 0) {
                 document.execCommand('formatBlock', false, 'p');
             }
             if (e.which === 13 && !e.shiftKey) {
+                prevElem = node.previousSibling;
+                if (writerOptions.insertHorizontalRule && prevElem.tagName.toLocaleLowerCase() === 'p'
+                        && prevElem.textContent.length === 0) {
+                    prevElem.parentElement.removeChild(prevElem);
+                    document.execCommand('insertHorizontalRule', false, null);
+                }
                 if (listTags.indexOf(parentTag) === -1) {
                     document.execCommand('formatBlock', false, 'p');
                 }
