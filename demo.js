@@ -3,7 +3,7 @@
 
 $(function () {
     'use strict';
-    $('.button-list').hide();
+    
     var onSelection = function (selection) {
         if (selection.toString().length > 0) {
             $('.button-list').fadeIn();
@@ -16,8 +16,7 @@ $(function () {
     var writer = Writer('.editor', {
         header1: 'h2',
         header2: 'h3',
-        placeholder: '',
-        onSelectText: onSelection
+        placeholder: ''
     });
     
         
@@ -33,6 +32,10 @@ $(function () {
             $('#btn-onoff i').removeClass('fa-toggle-off');
             $('#btn-onoff i').addClass('fa-toggle-on');
         }
+    });
+    
+    $('.button-list a').click(function (e) {
+       e.preventDefault(); 
     });
     
     $('#btn-off').click(function (e) {
@@ -76,6 +79,10 @@ $(function () {
     });
     $('#btn-quote').click(function (e) {
         writer.executeBlockquote();
+    });
+    $('#btn-image').click(function (e) {
+        var ref = prompt('Enter image URL', 'http://');
+        writer.executeInsertImage(ref);
     });
     
     $('#btn-anchor').click(function (e) {

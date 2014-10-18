@@ -4,7 +4,7 @@
 var Writer = function (p_elem, p_options) {
      
     'use strict';
-     
+
     var writer = {},
         writercont,
         storedSelection = {},
@@ -20,7 +20,7 @@ var Writer = function (p_elem, p_options) {
         elems,
         opt,
         placeholder;
-     
+    
     /*
      * Override default options with user p_options parameter
      */
@@ -335,6 +335,20 @@ var Writer = function (p_elem, p_options) {
     function executeUnlinkAction() {
         document.execCommand('unlink', false, null);
     }
+    
+    function executeInsertImage(reference) {
+        var figure = document.createElement('figure'),
+            img = document.createElement('img'),
+            caption = document.createElement('figcaption'),
+            parentBlockElem = getFirstBlockParentElement(storedSelection.selection.anchorNode);
+        
+        img.setAttribute('src', reference);
+        caption.innerHTML = 'Write caption here';
+        figure.appendChild(img);
+        figure.appendChild(caption);
+        
+        insertAfter(figure, parentBlockElem);
+    }
      
     /*
      * Initialise writer container
@@ -421,6 +435,10 @@ var Writer = function (p_elem, p_options) {
     
     writer.executeUnlink = function () {
         executeUnlinkAction();
+    };
+    
+    writer.executeInsertImage = function (reference) {
+        executeInsertImage(reference);
     };
     
     writer.enable = function () {
